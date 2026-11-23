@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections import Counter
 from collections.abc import Iterable
 from datetime import datetime
+from itertools import groupby
 
 from logtool.models import LogRecord
 from logtool.utils import deprecated
@@ -95,3 +96,16 @@ class LogAnalyzer:
 def count_errors(records: Iterable[LogRecord]) -> int:
     """Legacy helper retained for backward compatibility."""
     return sum(1 for record in records if record.is_error)
+
+
+def hourly_counts(
+    records: Iterable[LogRecord],
+) -> list[tuple[str, int]]:
+    """Group chronologically ordered records into hourly buckets."""
+    return [
+        (hour, sum(1 for _ in group))
+        for hour, group in groupby(
+            records,
+            key=lambda record: record.timestamp.strftime("%Y-%m-%d %H:00"),
+        )
+    ]

@@ -1,26 +1,34 @@
-"""Polymorphic text and JSON report rendering."""
+"""Polymorphic reporters and decorator-based registration."""
 
-from __future__ import annotations
-
+import csv
+import io
 import json
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
+from typing import TypeVar
 
 
 class Reporter(ABC):
-    """Abstract base class for all report formats."""
-
     name = "base"
 
     @abstractmethod
     def render(self, data: Mapping[str, object]) -> str:
-        """Render report data into a string."""
-        ...
+        """Render report data."""
 
 
+REPORTERS: dict[str, type[Reporter]] = {}
+
+ReporterType = TypeVar("ReporterType", bound=Reporter)
+
+
+def register(cls: type[ReporterType]) -> type[ReporterType]:
+    """Register a reporter class and return it unchanged."""
+    REPORTERS[cls.name] = cls
+    return cls
+
+
+@register
 class TextReporter(Reporter):
-    """Human-readable text reports."""
-
     name = "text"
 
     def render(self, data: Mapping[str, object]) -> str:
@@ -43,22 +51,35 @@ class TextReporter(Reporter):
         return "\n".join(lines)
 
 
+@register
 class JsonReporter(Reporter):
-    """Machine-readable JSON reports."""
-
     name = "json"
 
     def render(self, data: Mapping[str, object]) -> str:
         return json.dumps(data, indent=2)
 
 
-REPORTERS: dict[str, type[Reporter]] = {
-    cls.name: cls for cls in (TextReporter, JsonReporter)
-}
+@register
+class CsvReporter(Reporter):
+    name = "csv"
+
+    def render(self, data: Mapping[str, object]) -> str:
+        buffer = io.StringIO()
+        writer = csv.writer(buffer, lineterminator="\n")
+        writer.writerow(["key", "value"])
+
+        for key, value in data.items():
+            if isinstance(value, Mapping):
+                writer.writerows(value.items())
+            elif isinstance(value, list):
+                writer.writerows(value)
+            else:
+                writer.writerow([key, value])
+
+        return buffer.getvalue().rstrip("\n")
 
 
 def get_reporter(name: str) -> Reporter:
-    """Construct a reporter by its registered name."""
     try:
         return REPORTERS[name]()
     except KeyError:

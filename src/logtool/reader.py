@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 
 from logtool.models import LogRecord, ParseError
@@ -60,5 +61,20 @@ def filter_records(
         if min_status is not None and record.status < min_status:
             continue
         if path_prefix is not None and not record.path.startswith(path_prefix):
+            continue
+        yield record
+
+
+def between(
+    records: Iterable[LogRecord],
+    *,
+    since: datetime | None = None,
+    until: datetime | None = None,
+) -> Iterator[LogRecord]:
+    """Yield records within inclusive timestamp boundaries."""
+    for record in records:
+        if since is not None and record.timestamp < since:
+            continue
+        if until is not None and record.timestamp > until:
             continue
         yield record

@@ -6,11 +6,13 @@ import argparse
 import logging
 import sys
 from collections.abc import Callable, Sequence
+from datetime import UTC, datetime
 
 from logtool import __version__
-from logtool.analyzer import LogAnalyzer
+from logtool.analyzer import LogAnalyzer, hourly_counts
 from logtool.reader import (
     ParseStats,
+    between,
     filter_records,
     parse_records,
     read_lines,
@@ -115,6 +117,35 @@ def ratio(value: str) -> float:
     return number
 
 
+def iso_datetime(value: str) -> datetime:
+    """Parse ISO-8601 timestamps, treating naive values as UTC."""
+    try:
+        result = datetime.fromisoformat(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(
+            f"invalid ISO-8601 timestamp: {value!r}"
+        ) from exc
+
+    if result.tzinfo is None:
+        result = result.replace(tzinfo=UTC)
+
+    return result
+
+
+def cmd_hourly(args: argparse.Namespace) -> int:
+    """Report hourly counts within optional inclusive date bounds."""
+    records = parse_records(read_lines(args.files))
+
+    selected = between(
+        records,
+        since=args.since,
+        until=args.until,
+    )
+
+    emit({"hourly": hourly_counts(selected)}, args.format)
+    return EXIT_OK
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="logtool",
@@ -197,6 +228,15 @@ def build_parser() -> argparse.ArgumentParser:
     errors.add_argument("--min-status", type=int, default=400)
     errors.add_argument("-n", type=positive_int, default=5)
     errors.set_defaults(func=cmd_errors)
+
+    hourly = subparsers.add_parser(
+        "hourly",
+        parents=[common],
+        help="Count records per hour",
+    )
+    hourly.add_argument("--since", type=iso_datetime)
+    hourly.add_argument("--until", type=iso_datetime)
+    hourly.set_defaults(func=cmd_hourly)
 
     return parser
 

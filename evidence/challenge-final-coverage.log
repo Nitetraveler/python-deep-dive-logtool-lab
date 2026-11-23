@@ -1,0 +1,37 @@
+========== REMOVE DUPLICATE TIMEZONE TEST ==========
+PASS: Exactly one timezone test preserved
+
+========== FORMAT AND LINT ==========
+All checks passed!
+All checks passed!
+
+========== STRICT TYPE CHECKING ==========
+Success: no issues found in 9 source files
+
+========== FINAL CHALLENGE COVERAGE ==========
+........................................................................ [ 74%]
+.........................                                                [100%]
+
+---------- coverage: platform linux, python 3.12.3-final-0 -----------
+Name                       Stmts   Miss Branch BrPart  Cover   Missing
+----------------------------------------------------------------------
+src/logtool/__init__.py        2      0      0      0   100%
+src/logtool/__main__.py        3      0      0      0   100%
+src/logtool/analyzer.py       58      0     10      0   100%
+src/logtool/cli.py           102      0     10      0   100%
+src/logtool/models.py         40      0      2      0   100%
+src/logtool/reader.py         46      0     26      0   100%
+src/logtool/reporters.py      57      0     18      0   100%
+src/logtool/timeparse.py      18      0      2      0   100%
+src/logtool/utils.py          55      0      4      0   100%
+----------------------------------------------------------------------
+TOTAL                        381      0     72      0   100%
+Coverage JSON written to file evidence/challenge-coverage.json
+
+Required test coverage of 100% reached. Total coverage: 100.00%
+97 passed in 0.93s
+
+========== VERIFY COVERAGE JSON ==========
+true
+
+PASS: 100% COVERAGE ACHIEVED
