@@ -115,7 +115,7 @@ Virtual environments and temporary caches are excluded from Git.
 
 ## Author and lab completion
 
-- Author: nitetraveler
+- Author: Tariq Hussain
 - GitHub: Nitetraveler
 - Training provider: Alnafi
 - Programme: DCCS
