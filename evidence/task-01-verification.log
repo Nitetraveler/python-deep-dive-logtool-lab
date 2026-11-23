@@ -1,0 +1,47 @@
+========== TASK 1 VERIFICATION ==========
+Mon Nov 23 17:07:01 UTC 2026
+PASS: Python 3.12
+PASS: logtool 0.1.0 installed
+PASS: data/access.log: 20000 lines
+PASS: data/access.log: 20 corrupted entries
+PASS: data/access.log: 19980 valid entries
+PASS: data/access.log.1.gz: 2000 lines
+PASS: data/access.log.1.gz: 2 corrupted entries
+PASS: data/access.log.1.gz: 1998 valid entries
+PASS: Deterministic sample data
+
+========== CLI VERIFICATION ==========
+logtool 0.1.0
+logtool 0.1.0
+logtool is installed - sub-commands arrive in Task 6
+PASS: Both entry points working
+
+========== GIT EXCLUSION VERIFICATION ==========
+.venv/bin/python
+data/access.log
+data/access.log.1.gz
+PASS: Generated data and venv excluded from Git
+
+========== PROJECT STRUCTURE ==========
+.
+├── .gitignore
+├── README.md
+├── data
+│   ├── access.log
+│   └── access.log.1.gz
+├── evidence
+│   ├── environment-setup.log
+│   └── task-01-verification.log
+├── pyproject.toml
+├── scripts
+│   └── gen_logs.py
+├── src
+│   └── logtool
+│       ├── __init__.py
+│       ├── __main__.py
+│       └── cli.py
+└── tests
+
+7 directories, 11 files
+
+PASS: TASK 1 VALIDATION COMPLETE
