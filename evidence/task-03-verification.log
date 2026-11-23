@@ -1,0 +1,66 @@
+========== TASK 3 VERIFICATION ==========
+Mon Nov 23 17:11:10 UTC 2026
+INFO logtool.utils: slow_sum took 0.0247s
+INFO logtool.utils: add took 0.0000s
+INFO logtool.utils: add took 0.0000s
+INFO logtool.utils: add took 0.0000s
+INFO logtool.utils: sleep block took 0.200s
+INFO logtool.utils: failing block took 0.000s
+INFO logtool.utils: explode took 0.0000s
+DEBUG logtool.utils: opening data/access.log
+DEBUG logtool.utils: closed data/access.log
+DEBUG logtool.utils: opening data/access.log.1.gz
+DEBUG logtool.utils: closed data/access.log.1.gz
+DEBUG logtool.utils: opening data/access.log
+DEBUG logtool.utils: closed data/access.log
+DEBUG logtool.utils: opening data/access.log.1.gz
+DEBUG logtool.utils: closed data/access.log.1.gz
+
+========== TIMED DECORATOR ==========
+slow_sum | Add up the numbers below n.
+result: 499999500000
+PASS: Timed decorator preserves result and metadata
+
+========== SIGNATURE PRESERVATION ==========
+3 add (a: int, b: int = 2) -> int True
+PASS: Signature and keyword arguments preserved
+
+========== TIMER NORMAL EXECUTION ==========
+Elapsed: 0.20011172600004556
+PASS: Timer records elapsed time
+
+========== TIMER EXCEPTION PROPAGATION ==========
+exception propagated, elapsed recorded: True
+PASS: Timer handles exceptions correctly
+
+========== TIMED DECORATOR EXCEPTION ==========
+PASS: Timed decorator propagates exceptions
+
+========== DEPRECATION DECORATOR ==========
+DeprecationWarning - old_api() is deprecated: use new_api() instead
+PASS: Warning emitted on every call
+
+========== PLAIN LOG CONTEXT MANAGER ==========
+PASS: Plain file opened and closed correctly
+
+========== GZIP CONTEXT MANAGER ==========
+first gz request: GET /api/v1/items HTTP/1.1
+closed after with: True
+PASS: Gzip file opened and closed correctly
+
+========== CLEANUP DURING EXCEPTION ==========
+PASS: data/access.log closed after exception
+PASS: data/access.log.1.gz closed after exception
+
+========== MISSING FILE HANDLING ==========
+log file not found: data/nope.log
+PASS: Missing file raises FileNotFoundError
+
+========== WHY FUNCTOOLS.WRAPS MATTERS ==========
+wrapper None
+PASS: Official metadata-loss demonstration
+
+========== OFFICIAL FINAL VERIFICATION ==========
+7 True
+
+PASS: ALL TASK 3 REQUIREMENTS VERIFIED
