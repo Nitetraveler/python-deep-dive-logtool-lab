@@ -1,0 +1,102 @@
+========== FINAL LAB VALIDATION ==========
+Mon Nov 23 17:40:15 UTC 2026
+
+========== ENVIRONMENT ==========
+Python 3.12.3
+git version 2.43.0
+No broken requirements found.
+
+========== PACKAGE ENTRY POINTS ==========
+logtool 0.1.0
+logtool 0.1.0
+
+========== DATASET INTEGRITY ==========
+PASS: All dataset sizes
+
+========== MAIN LAB SUMMARY ==========
+true
+
+========== COMBINED DATASET ==========
+true
+
+========== TOP IP ==========
+true
+
+========== TOP PATH ==========
+true
+
+========== ERROR ANALYSIS ==========
+true
+
+========== CHALLENGE HOURLY ==========
+true
+
+========== CHALLENGE CSV ==========
+PASS: CSV output
+
+========== EXIT CODE VERIFICATION ==========
+Expected=0 Actual=0 Command=logtool summary data/access.log
+Expected=1 Actual=1 Command=logtool summary data/nonexistent.log
+Expected=2 Actual=2 Command=logtool top data/access.log --by invalid
+Expected=2 Actual=2 Command=logtool top data/access.log -n 0
+Expected=2 Actual=2 Command=logtool hourly data/access.log --since yesterday
+Expected=3 Actual=3 Command=logtool summary data/access.log --fail-on-error-rate 0.15
+Expected=0 Actual=0 Command=logtool summary data/access.log --fail-on-error-rate 0.25
+
+========== LARGE DATASET ==========
+true
+
+========== CODE QUALITY ==========
+All checks passed!
+Success: no issues found in 9 source files
+
+========== COMPLETE AUTOMATED TESTS ==========
+........................................................................ [ 74%]
+.........................                                                [100%]
+
+---------- coverage: platform linux, python 3.12.3-final-0 -----------
+Name                       Stmts   Miss Branch BrPart  Cover   Missing
+----------------------------------------------------------------------
+src/logtool/__init__.py        2      0      0      0   100%
+src/logtool/__main__.py        3      0      0      0   100%
+src/logtool/analyzer.py       58      0     10      0   100%
+src/logtool/cli.py           102      0     10      0   100%
+src/logtool/models.py         40      0      2      0   100%
+src/logtool/reader.py         46      0     26      0   100%
+src/logtool/reporters.py      57      0     18      0   100%
+src/logtool/timeparse.py      18      0      2      0   100%
+src/logtool/utils.py          55      0      4      0   100%
+----------------------------------------------------------------------
+TOTAL                        381      0     72      0   100%
+
+Required test coverage of 100% reached. Total coverage: 100.00%
+97 passed in 0.84s
+
+========== OPTIMISED TIMESTAMP PARSER ==========
+PASS: Optimised timestamp parser
+
+========== RELEASE ARTIFACT ==========
+dist/logtool-0.1.0-py3-none-any.whl: OK
+
+========== RELEASE TAGS ==========
+72c9ba14deabe9d9afd1bd57849c08ef9130f15a refs/tags/v0.1.0
+f19a02afd060e09e76e9b1453663f7ad1b768e25 refs/tags/v0.2.0
+
+========== REQUIRED PROJECT FILES ==========
+PASS: README.md
+PASS: pyproject.toml
+PASS: scripts/gen_logs.py
+PASS: scripts/bench.py
+PASS: scripts/validate.sh
+PASS: tests/test_challenge.py
+PASS: evidence/task-07-regression.log
+PASS: evidence/task-08-final-validation.log
+PASS: evidence/challenge-verification.log
+PASS: evidence/challenge-final-coverage.log
+
+========== FINAL RESULT ==========
+PASS: ALL MAIN LAB REQUIREMENTS
+PASS: ALL CHALLENGE REQUIREMENTS
+PASS: ALL QUALITY GATES
+PASS: RELEASE INTEGRITY
+PASS: COMPREHENSIVE FINAL VALIDATION
