@@ -61,9 +61,7 @@ def test_exact_status(log_file):
 
 def test_combined_filter(log_file):
     records = parse_records(read_lines([log_file]))
-    filtered = filter_records(
-        records, min_status=400, path_prefix="/api"
-    )
+    filtered = filter_records(records, min_status=400, path_prefix="/api")
     assert [r.status for r in filtered] == [500, 404]
 
 

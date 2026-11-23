@@ -53,9 +53,7 @@ def test_summary_and_repr(analyzer):
     assert summary["error_rate"] == 0.6
     assert summary["first_seen"] == "2024-10-10T13:55:36+00:00"
     assert summary["last_seen"] == "2024-10-10T14:05:00+00:00"
-    assert repr(analyzer) == (
-        "LogAnalyzer(records=5, errors=3, unique_ips=3)"
-    )
+    assert repr(analyzer) == ("LogAnalyzer(records=5, errors=3, unique_ips=3)")
 
 
 def test_empty_analyzer():

@@ -31,18 +31,14 @@ def test_summary_text(log_file, capsys):
 
 
 def test_summary_multiple_files(log_file, gz_log_file, capsys):
-    data = run_json(
-        capsys, ["summary", str(log_file), str(gz_log_file)]
-    )
+    data = run_json(capsys, ["summary", str(log_file), str(gz_log_file)])
     assert data["files"] == 2
     assert data["records"] == 10
     assert data["malformed"] == 2
 
 
 def test_top_path(log_file, capsys):
-    data = run_json(
-        capsys, ["top", str(log_file), "--by", "path", "-n", "2"]
-    )
+    data = run_json(capsys, ["top", str(log_file), "--by", "path", "-n", "2"])
     assert data["top_path"] == [
         ["/index.html", 2],
         ["/api/v1/items", 2],
@@ -55,9 +51,7 @@ def test_top_default(log_file, capsys):
 
 
 def test_errors_500(log_file, capsys):
-    data = run_json(
-        capsys, ["errors", str(log_file), "--min-status", "500"]
-    )
+    data = run_json(capsys, ["errors", str(log_file), "--min-status", "500"])
     assert data["error_records"] == 1
     assert data["by_status"] == {"500": 1}
     assert data["top_error_paths"] == [["/api/v1/items", 1]]
@@ -74,12 +68,17 @@ def test_errors_default(log_file, capsys):
     [("0.5", 3), ("0.7", 0), ("0.6", 0)],
 )
 def test_error_threshold(log_file, capsys, threshold, expected):
-    assert main([
-        "summary",
-        str(log_file),
-        "--fail-on-error-rate",
-        threshold,
-    ]) == expected
+    assert (
+        main(
+            [
+                "summary",
+                str(log_file),
+                "--fail-on-error-rate",
+                threshold,
+            ]
+        )
+        == expected
+    )
     captured = capsys.readouterr()
     if expected == 3:
         assert "exceeds threshold" in captured.err

@@ -1,0 +1,9 @@
+========== OPTIMISED TIMESTAMP BENCHMARK ==========
+100000 loops, best of 5: 2.38 usec per loop
+
+========== IPYTHON OPTIMISED BENCHMARK ==========
+[0;36m  Cell [0;32mIn[1], line 1[0;36m[0m
+[0;31m    from logtool.timeparse import parse_timestamp; %timeit parse_timestamp("10/Oct/2024:13:55:36 +0000")[0m
+[0m                                                   ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+

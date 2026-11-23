@@ -110,9 +110,7 @@ def ratio(value: str) -> float:
     number = float(value)
 
     if not 0.0 <= number <= 1.0:
-        raise argparse.ArgumentTypeError(
-            f"must be between 0 and 1, got {value}"
-        )
+        raise argparse.ArgumentTypeError(f"must be between 0 and 1, got {value}")
 
     return number
 
@@ -218,7 +216,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
 
     try:
-        return args.func(args)
+        handler: Handler = args.func
+        return handler(args)
     except FileNotFoundError as exc:
         print(f"logtool: error: {exc}", file=sys.stderr)
         return EXIT_IO_ERROR

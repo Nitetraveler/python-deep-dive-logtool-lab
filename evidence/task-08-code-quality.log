@@ -1,0 +1,159 @@
+========== TASK 8 CODE QUALITY ==========
+Mon Nov 23 17:21:15 UTC 2026
+
+========== RUFF DETECTS BAD STYLE ==========
+scratch/bad_style.py:1:1: E401 [*] Multiple imports on one line
+scratch/bad_style.py:1:1: I001 [*] Import block is un-sorted or un-formatted
+scratch/bad_style.py:1:8: F401 [*] `os` imported but unused
+scratch/bad_style.py:1:12: F401 [*] `sys` imported but unused
+scratch/bad_style.py:3:5: SIM103 Return the condition `value == None` directly
+scratch/bad_style.py:3:17: E711 Comparison to `None` should be `cond is None`
+Found 6 errors.
+[*] 4 fixable with the `--fix` option (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
+PASS: Ruff detected intentional style violations
+
+========== BLACK FORMATTING DEMONSTRATION ==========
+--- scratch/bad_style.py	2026-11-23 17:21:15.500098+00:00
++++ scratch/bad_style.py	2026-11-23 17:21:15.694741+00:00
+@@ -1,6 +1,8 @@
+ import os, sys
+-def is_missing( value ):
++
++
++def is_missing(value):
+     if value == None:
+         return True
+     else:
+         return False
+would reformat scratch/bad_style.py
+
+All done! ✨ 🍰 ✨
+1 file would be reformatted.
+
+========== AUTOMATIC RUFF FIXES ==========
+tests/conftest.py:8:89: E501 Line too long (102 > 88)
+   |
+ 7 | SAMPLE_LINES = [
+ 8 |     '10.0.0.1 - - [10/Oct/2024:13:55:36 +0000] "GET /index.html HTTP/1.1" 200 2326 "-" "curl/7.81.0"',
+   |                                                                                         ^^^^^^^^^^^^^^ E501
+ 9 |     '10.0.0.2 - - [10/Oct/2024:13:55:37 +0000] "POST /login HTTP/1.1" 401 512 "-" "curl/7.81.0"',
+10 |     "this is not a log line",
+   |
+
+tests/conftest.py:9:89: E501 Line too long (97 > 88)
+   |
+ 7 | SAMPLE_LINES = [
+ 8 |     '10.0.0.1 - - [10/Oct/2024:13:55:36 +0000] "GET /index.html HTTP/1.1" 200 2326 "-" "curl/7.81.0"',
+ 9 |     '10.0.0.2 - - [10/Oct/2024:13:55:37 +0000] "POST /login HTTP/1.1" 401 512 "-" "curl/7.81.0"',
+   |                                                                                         ^^^^^^^^^ E501
+10 |     "this is not a log line",
+11 |     '10.0.0.1 - - [10/Oct/2024:13:56:00 +0000] "GET /api/v1/items HTTP/1.1" 500 128 "-" "python-requests/2.31.0"',
+   |
+
+tests/conftest.py:11:89: E501 Line too long (114 > 88)
+   |
+ 9 |     '10.0.0.2 - - [10/Oct/2024:13:55:37 +0000] "POST /login HTTP/1.1" 401 512 "-" "curl/7.81.0"',
+10 |     "this is not a log line",
+11 |     '10.0.0.1 - - [10/Oct/2024:13:56:00 +0000] "GET /api/v1/items HTTP/1.1" 500 128 "-" "python-requests/2.31.0"',
+   |                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^ E501
+12 |     '10.0.0.3 - - [10/Oct/2024:14:01:12 +0000] "GET /index.html HTTP/1.1" 304 - "-" "Mozilla/5.0"',
+13 |     "",
+   |
+
+tests/conftest.py:12:89: E501 Line too long (99 > 88)
+   |
+10 |     "this is not a log line",
+11 |     '10.0.0.1 - - [10/Oct/2024:13:56:00 +0000] "GET /api/v1/items HTTP/1.1" 500 128 "-" "python-requests/2.31.0"',
+12 |     '10.0.0.3 - - [10/Oct/2024:14:01:12 +0000] "GET /index.html HTTP/1.1" 304 - "-" "Mozilla/5.0"',
+   |                                                                                         ^^^^^^^^^^^ E501
+13 |     "",
+14 |     '10.0.0.1 - - [10/Oct/2024:14:05:00 +0000] "GET /api/v1/items HTTP/1.1" 404 64 "-" "curl/7.81.0"',
+   |
+
+tests/conftest.py:14:89: E501 Line too long (102 > 88)
+   |
+12 |     '10.0.0.3 - - [10/Oct/2024:14:01:12 +0000] "GET /index.html HTTP/1.1" 304 - "-" "Mozilla/5.0"',
+13 |     "",
+14 |     '10.0.0.1 - - [10/Oct/2024:14:05:00 +0000] "GET /api/v1/items HTTP/1.1" 404 64 "-" "curl/7.81.0"',
+   |                                                                                         ^^^^^^^^^^^^^^ E501
+15 | ]
+   |
+
+tests/test_utils.py:26:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+25 |   def test_missing_file(tmp_path):
+26 |       with pytest.raises(FileNotFoundError, match="log file not found"):
+   |  _____^
+27 | |         with open_log(tmp_path / "missing.log"):
+   | |________________________________________________^ SIM117
+28 |               pass
+   |
+   = help: Combine `with` statements
+
+tests/test_utils.py:32:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+31 |   def test_file_closed_on_exception(log_file):
+32 |       with pytest.raises(RuntimeError, match="boom"):
+   |  _____^
+33 | |         with open_log(log_file) as fh:
+   | |______________________________________^ SIM117
+34 |               raise RuntimeError("boom")
+35 |       assert fh.closed
+   |
+   = help: Combine `with` statements
+
+tests/test_utils.py:39:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+38 |   def test_timer(caplog):
+39 |       with caplog.at_level(logging.INFO):
+   |  _____^
+40 | |         with Timer("test block") as timer:
+   | |__________________________________________^ SIM117
+41 |               time.sleep(0.01)
+42 |       assert timer.elapsed >= 0.009
+   |
+   = help: Combine `with` statements
+
+tests/test_utils.py:47:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+46 |   def test_timer_exception(caplog):
+47 |       with caplog.at_level(logging.INFO):
+   |  _____^
+48 | |         with pytest.raises(RuntimeError, match="boom"):
+   | |_______________________________________________________^ SIM117
+49 |               with Timer() as timer:
+50 |                   raise RuntimeError("boom")
+   |
+   = help: Combine `with` statements
+
+tests/test_utils.py:75:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+73 |           raise ValueError("failure")
+74 |   
+75 |       with caplog.at_level(logging.INFO):
+   |  _____^
+76 | |         with pytest.raises(ValueError, match="failure"):
+   | |________________________________________________________^ SIM117
+77 |               fail()
+78 |       assert "fail took" in caplog.text
+   |
+   = help: Combine `with` statements
+
+Found 16 errors (6 fixed, 10 remaining).
+No fixes available (4 hidden fixes can be enabled with the `--unsafe-fixes` option).
+
+========== BLACK FORMAT PROJECT ==========
+
+========== REMAINING RUFF CHECKS ==========
+tests/conftest.py:8:89: E501 Line too long (102 > 88)
+tests/conftest.py:9:89: E501 Line too long (97 > 88)
+tests/conftest.py:11:89: E501 Line too long (114 > 88)
+tests/conftest.py:12:89: E501 Line too long (99 > 88)
+tests/conftest.py:14:89: E501 Line too long (102 > 88)
+tests/test_utils.py:26:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+tests/test_utils.py:32:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+tests/test_utils.py:39:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+tests/test_utils.py:47:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+tests/test_utils.py:75:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+Found 10 errors.
+No fixes available (4 hidden fixes can be enabled with the `--unsafe-fixes` option).

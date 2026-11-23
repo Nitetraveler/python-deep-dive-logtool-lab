@@ -1,0 +1,66 @@
+========== FINAL TASK 8 VERIFICATION ==========
+Mon Nov 23 17:22:39 UTC 2026
+
+========== FORMAT AND LINT ==========
+tests/test_utils.py:26:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+25 |   def test_missing_file(tmp_path):
+26 |       with pytest.raises(FileNotFoundError, match="log file not found"):
+   |  _____^
+27 | |         with open_log(tmp_path / "missing.log"):
+   | |________________________________________________^ SIM117
+28 |               pass
+   |
+   = help: Combine `with` statements
+
+tests/test_utils.py:32:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+31 |   def test_file_closed_on_exception(log_file):
+32 |       with pytest.raises(RuntimeError, match="boom"):
+   |  _____^
+33 | |         with open_log(log_file) as fh:
+   | |______________________________________^ SIM117
+34 |               raise RuntimeError("boom")
+35 |       assert fh.closed
+   |
+   = help: Combine `with` statements
+
+tests/test_utils.py:39:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+38 |   def test_timer(caplog):
+39 |       with caplog.at_level(logging.INFO):
+   |  _____^
+40 | |         with Timer("test block") as timer:
+   | |__________________________________________^ SIM117
+41 |               time.sleep(0.01)
+42 |       assert timer.elapsed >= 0.009
+   |
+   = help: Combine `with` statements
+
+tests/test_utils.py:47:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+46 |   def test_timer_exception(caplog):
+47 |       with caplog.at_level(logging.INFO):
+   |  _____^
+48 | |         with pytest.raises(RuntimeError, match="boom"):
+   | |_______________________________________________________^ SIM117
+49 |               with Timer() as timer:
+50 |                   raise RuntimeError("boom")
+   |
+   = help: Combine `with` statements
+
+tests/test_utils.py:75:5: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+   |
+73 |           raise ValueError("failure")
+74 |   
+75 |       with caplog.at_level(logging.INFO):
+   |  _____^
+76 | |         with pytest.raises(ValueError, match="failure"):
+   | |________________________________________________________^ SIM117
+77 |               fail()
+78 |       assert "fail took" in caplog.text
+   |
+   = help: Combine `with` statements
+
+Found 5 errors.
+No fixes available (4 hidden fixes can be enabled with the `--unsafe-fixes` option).

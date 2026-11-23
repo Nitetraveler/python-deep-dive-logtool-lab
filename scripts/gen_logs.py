@@ -3,7 +3,7 @@
 
 import argparse
 import gzip
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 IPS = ["203.0.113.10", "198.51.100.23", "192.0.2.77", "203.0.113.99"]
@@ -33,7 +33,7 @@ def main() -> None:
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
 
-    start = datetime.fromisoformat(args.start).replace(tzinfo=timezone.utc)
+    start = datetime.fromisoformat(args.start).replace(tzinfo=UTC)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     opener = gzip.open if args.out.suffix == ".gz" else open
     with opener(args.out, "wt", encoding="utf-8") as fh:

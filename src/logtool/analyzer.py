@@ -46,8 +46,7 @@ class LogAnalyzer:
     @property
     def error_count(self) -> int:
         return sum(
-            count for status, count in self.status_counts.items()
-            if status >= 400
+            count for status, count in self.status_counts.items() if status >= 400
         )
 
     @property
@@ -67,25 +66,16 @@ class LogAnalyzer:
             "status": self.status_counts,
         }
         if field not in counters:
-            raise ValueError(
-                f"unknown field {field!r}; use one of {sorted(counters)}"
-            )
-        return [
-            (str(key), count)
-            for key, count in counters[field].most_common(n)
-        ]
+            raise ValueError(f"unknown field {field!r}; use one of {sorted(counters)}")
+        return [(str(key), count) for key, count in counters[field].most_common(n)]
 
     def summary(self) -> dict[str, object]:
         return {
             "records": self.total,
             "total_bytes": self.total_bytes,
             "unique_ips": len(self.ip_counts),
-            "first_seen": (
-                self.first_seen.isoformat() if self.first_seen else None
-            ),
-            "last_seen": (
-                self.last_seen.isoformat() if self.last_seen else None
-            ),
+            "first_seen": (self.first_seen.isoformat() if self.first_seen else None),
+            "last_seen": (self.last_seen.isoformat() if self.last_seen else None),
             "error_rate": round(self.error_rate, 4),
             "status_classes": self.status_classes(),
         }

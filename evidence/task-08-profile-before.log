@@ -1,0 +1,35 @@
+========== GENERATE LARGE BENCHMARK DATASET ==========
+wrote 200000 lines to data/big.log
+200000 data/big.log
+21M	data/big.log
+
+========== BASELINE PERFORMANCE PROFILE ==========
+Mon Nov 23 17:21:48 2026    profile.out
+
+         7430871 function calls (7429886 primitive calls) in 9.246 seconds
+
+   Ordered by: cumulative time
+   List reduced from 763 to 18 due to restriction <'logtool|_strptime'>
+   List reduced from 18 to 8 due to restriction <8>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+   199800    0.682    0.000    6.023    0.000 _strptime.py:551(_strptime_datetime)
+   199800    3.110    0.000    5.341    0.000 _strptime.py:293(_strptime)
+   199802    0.090    0.000    0.832    0.000 _strptime.py:26(_getlang)
+        1    0.000    0.000    0.003    0.003 _strptime.py:1(<module>)
+        1    0.000    0.000    0.002    0.002 _strptime.py:261(compile)
+        1    0.000    0.000    0.001    0.001 _strptime.py:173(__init__)
+        4    0.000    0.000    0.001    0.000 _strptime.py:238(pattern)
+        1    0.000    0.000    0.000    0.000 _strptime.py:49(__init__)
+
+
+
+========== BASELINE TIMESTAMP BENCHMARK ==========
+20000 loops, best of 5: 11.3 usec per loop
+
+========== IPYTHON BASELINE BENCHMARK ==========
+[0;36m  Cell [0;32mIn[1], line 1[0;36m[0m
+[0;31m    from logtool.timeparse import parse_timestamp; %timeit parse_timestamp("10/Oct/2024:13:55:36 +0000")[0m
+[0m                                                   ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
