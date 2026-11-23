@@ -1,0 +1,16 @@
+{
+  "files": 2,
+  "malformed": 22,
+  "records": 21978,
+  "total_bytes": 19769200,
+  "unique_ips": 4,
+  "first_seen": "2024-10-09T00:00:00+00:00",
+  "last_seen": "2024-10-10T05:33:18+00:00",
+  "error_rate": 0.1992,
+  "status_classes": {
+    "2xx": 15400,
+    "3xx": 2200,
+    "4xx": 2200,
+    "5xx": 2178
+  }
+}

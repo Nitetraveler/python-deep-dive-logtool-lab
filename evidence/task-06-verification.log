@@ -1,0 +1,209 @@
+========== TASK 6 VERIFICATION ==========
+Mon Nov 23 17:17:18 UTC 2026
+
+========== SUMMARY TEXT ==========
+files              1
+malformed          20
+records            19980
+total_bytes        17972000
+unique_ips         4
+first_seen         2024-10-10T00:00:00+00:00
+last_seen          2024-10-10T05:33:18+00:00
+error_rate         19.92%
+status_classes:
+  2xx              14000
+  3xx              2000
+  4xx              2000
+  5xx              1980
+
+========== SUMMARY JSON ==========
+{
+  "files": 1,
+  "malformed": 20,
+  "records": 19980,
+  "total_bytes": 17972000,
+  "unique_ips": 4,
+  "first_seen": "2024-10-10T00:00:00+00:00",
+  "last_seen": "2024-10-10T05:33:18+00:00",
+  "error_rate": 0.1992,
+  "status_classes": {
+    "2xx": 14000,
+    "3xx": 2000,
+    "4xx": 2000,
+    "5xx": 1980
+  }
+}
+PASS: Summary JSON values
+
+========== TOP IP ADDRESSES ==========
+top_ip:
+  203.0.113.10     8563
+  198.51.100.23    5708
+  203.0.113.99     2855
+  192.0.2.77       2854
+{
+  "top_ip": [
+    [
+      "203.0.113.10",
+      8563
+    ],
+    [
+      "198.51.100.23",
+      5708
+    ]
+  ]
+}
+PASS: Top IP addresses
+
+========== TOP REQUEST PATHS ==========
+top_path:
+  /api/v1/items    10000
+  /index.html      5000
+  /login           2500
+{
+  "top_path": [
+    [
+      "/api/v1/items",
+      10000
+    ],
+    [
+      "/index.html",
+      5000
+    ],
+    [
+      "/login",
+      2500
+    ]
+  ]
+}
+PASS: Top request paths
+
+========== TOP STATUS CODES ==========
+{
+  "top_status": [
+    [
+      "200",
+      14000
+    ],
+    [
+      "404",
+      2000
+    ]
+  ]
+}
+PASS: Top status codes
+
+========== SERVER ERROR ANALYSIS ==========
+min_status         500
+error_records      1980
+by_status:
+  500              1000
+  503              980
+top_error_paths:
+  /api/v1/items    1000
+  /login           500
+  /admin           480
+{
+  "min_status": 500,
+  "error_records": 1980,
+  "by_status": {
+    "500": 1000,
+    "503": 980
+  },
+  "top_error_paths": [
+    [
+      "/api/v1/items",
+      1000
+    ],
+    [
+      "/login",
+      500
+    ],
+    [
+      "/admin",
+      480
+    ]
+  ]
+}
+PASS: Server error analysis
+
+========== DEFAULT ERROR THRESHOLD ==========
+true
+PASS: Default minimum status 400
+
+========== MULTI-FILE ANALYSIS ==========
+{
+  "files": 2,
+  "malformed": 22,
+  "records": 21978,
+  "total_bytes": 19769200,
+  "unique_ips": 4,
+  "first_seen": "2024-10-09T00:00:00+00:00",
+  "last_seen": "2024-10-10T05:33:18+00:00",
+  "error_rate": 0.1992,
+  "status_classes": {
+    "2xx": 15400,
+    "3xx": 2200,
+    "4xx": 2200,
+    "5xx": 2178
+  }
+}
+PASS: Combined plain and gzip input
+
+========== MODULE ENTRY POINT ==========
+true
+PASS: python -m logtool works
+
+========== INFO VERBOSITY ==========
+INFO logtool.utils: analyze took 0.3975s
+PASS: INFO logging on stderr
+
+========== DEBUG VERBOSITY ==========
+DEBUG logtool.utils: opening data/access.log
+DEBUG logtool.utils: closed data/access.log
+INFO logtool.utils: analyze took 0.3771s
+Malformed lines logged: 20
+PASS: DEBUG logging and clean JSON stdout
+
+========== EXIT CODE VERIFICATION ==========
+Successful summary: expected=0 actual=0
+PASS: Successful summary
+Missing file: expected=1 actual=1
+logtool: error: log file not found: data/nope.log
+PASS: Missing file
+Invalid top field: expected=2 actual=2
+usage: logtool top [-h] [-f {json,text}] [--by {ip,path,status}] [-n N]
+                   FILE [FILE ...]
+logtool top: error: argument --by: invalid choice: 'user' (choose from 'ip', 'path', 'status')
+PASS: Invalid top field
+Invalid top count: expected=2 actual=2
+usage: logtool top [-h] [-f {json,text}] [--by {ip,path,status}] [-n N]
+                   FILE [FILE ...]
+logtool top: error: argument -n: must be >= 1, got 0
+PASS: Invalid top count
+Invalid threshold: expected=2 actual=2
+usage: logtool summary [-h] [-f {json,text}] [--fail-on-error-rate RATIO]
+                       FILE [FILE ...]
+logtool summary: error: argument --fail-on-error-rate: must be between 0 and 1, got 1.5
+PASS: Invalid threshold
+Missing subcommand: expected=2 actual=2
+usage: logtool [-h] [--version] [-v] COMMAND ...
+logtool: error: the following arguments are required: COMMAND
+PASS: Missing subcommand
+Invalid output format: expected=2 actual=2
+usage: logtool summary [-h] [-f {json,text}] [--fail-on-error-rate RATIO]
+                       FILE [FILE ...]
+logtool summary: error: argument -f/--format: invalid choice: 'invalid' (choose from 'json', 'text')
+PASS: Invalid output format
+Threshold exceeded: expected=3 actual=3
+logtool: error rate 19.92% exceeds threshold 15.00%
+PASS: Threshold exceeded
+Threshold satisfied: expected=0 actual=0
+PASS: Threshold satisfied
+Version command: expected=0 actual=0
+PASS: Version command
+
+========== PACKAGE INTEGRITY ==========
+No broken requirements found.
+
+PASS: ALL TASK 6 REQUIREMENTS VERIFIED

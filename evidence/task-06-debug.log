@@ -1,0 +1,23 @@
+DEBUG logtool.utils: opening data/access.log
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 1999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 2999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 3999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 4999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 5999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 6999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 7999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 8999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 9999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 10999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 11999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 12999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 13999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 14999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 15999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 16999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 17999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 18999 -- disk hiccup ###'
+DEBUG logtool.reader: skipping line: unrecognised log format: '### corrupted entry 19999 -- disk hiccup ###'
+DEBUG logtool.utils: closed data/access.log
+INFO logtool.utils: analyze took 0.3771s

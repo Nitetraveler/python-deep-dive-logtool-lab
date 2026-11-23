@@ -1,0 +1,22 @@
+{
+  "min_status": 500,
+  "error_records": 1980,
+  "by_status": {
+    "500": 1000,
+    "503": 980
+  },
+  "top_error_paths": [
+    [
+      "/api/v1/items",
+      1000
+    ],
+    [
+      "/login",
+      500
+    ],
+    [
+      "/admin",
+      480
+    ]
+  ]
+}
