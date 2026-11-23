@@ -1,0 +1,74 @@
+========== FINAL TASK 8 VALIDATION ==========
+Mon Nov 23 17:25:05 UTC 2026
+
+========== QUALITY GATES ==========
+All checks passed!
+Success: no issues found in 9 source files
+
+========== FULL COVERAGE ==========
+........................................................................ [ 86%]
+...........                                                              [100%]
+
+---------- coverage: platform linux, python 3.12.3-final-0 -----------
+Name                       Stmts   Miss Branch BrPart  Cover   Missing
+----------------------------------------------------------------------
+src/logtool/__init__.py        2      0      0      0   100%
+src/logtool/__main__.py        3      0      0      0   100%
+src/logtool/analyzer.py       55      0     10      0   100%
+src/logtool/cli.py            84      0      8      0   100%
+src/logtool/models.py         40      0      2      0   100%
+src/logtool/reader.py         38      0     20      0   100%
+src/logtool/reporters.py      35      0     12      0   100%
+src/logtool/timeparse.py      18      0      2      0   100%
+src/logtool/utils.py          55      0      4      0   100%
+----------------------------------------------------------------------
+TOTAL                        330      0     58      0   100%
+Coverage JSON written to file evidence/task-08-coverage.json
+
+Required test coverage of 85% reached. Total coverage: 100.00%
+83 passed in 0.80s
+
+========== VERIFY COVERAGE PERCENTAGE ==========
+100.0
+
+========== BUILD RELEASE WHEEL ==========
+
+[notice] A new release of pip is available: 24.2 -> 26.3
+[notice] To update, run: pip install --upgrade pip
+total 12K
+-rw-rw-r-- 1 ubuntu ubuntu 9.7K Nov 23 17:25 logtool-0.1.0-py3-none-any.whl
+
+========== VERIFY WHEEL CONTENTS ==========
+PASS: __init__.py
+PASS: __main__.py
+PASS: analyzer.py
+PASS: cli.py
+PASS: models.py
+PASS: reader.py
+PASS: reporters.py
+PASS: timeparse.py
+PASS: utils.py
+[console_scripts]
+logtool = logtool.cli:main
+
+PASS: Wheel contents and entry point verified
+
+========== GENERATE WHEEL CHECKSUM ==========
+03cce120d609cc284ddc4bcf782b4deed8be94a7f2a12e97a88c37572cb7baef  dist/logtool-0.1.0-py3-none-any.whl
+dist/logtool-0.1.0-py3-none-any.whl: OK
+
+========== PACKAGE VERSION ==========
+logtool 0.1.0
+logtool 0.1.0
+
+========== DEPENDENCY INTEGRITY ==========
+No broken requirements found.
+
+========== ORIGINAL DATASET ==========
+true
+
+========== MULTIPLE DATASETS ==========
+true
+
+========== VERIFY OPTIMISED SOURCE ==========
+PASS: ALL TASK 8 REQUIREMENTS VERIFIED

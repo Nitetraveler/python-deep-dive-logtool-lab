@@ -23,31 +23,33 @@ def test_open_gzip(gz_log_file):
 
 
 def test_missing_file(tmp_path):
-    with pytest.raises(FileNotFoundError, match="log file not found"):
-        with open_log(tmp_path / "missing.log"):
-            pass
+    with (
+        pytest.raises(FileNotFoundError, match="log file not found"),
+        open_log(tmp_path / "missing.log"),
+    ):
+        pass
 
 
 def test_file_closed_on_exception(log_file):
-    with pytest.raises(RuntimeError, match="boom"):
-        with open_log(log_file) as fh:
-            raise RuntimeError("boom")
+    with pytest.raises(RuntimeError, match="boom"), open_log(log_file) as fh:
+        raise RuntimeError("boom")
     assert fh.closed
 
 
 def test_timer(caplog):
-    with caplog.at_level(logging.INFO):
-        with Timer("test block") as timer:
-            time.sleep(0.01)
+    with caplog.at_level(logging.INFO), Timer("test block") as timer:
+        time.sleep(0.01)
     assert timer.elapsed >= 0.009
     assert "test block took" in caplog.text
 
 
 def test_timer_exception(caplog):
-    with caplog.at_level(logging.INFO):
-        with pytest.raises(RuntimeError, match="boom"):
-            with Timer() as timer:
-                raise RuntimeError("boom")
+    with (
+        caplog.at_level(logging.INFO),
+        pytest.raises(RuntimeError, match="boom"),
+        Timer() as timer,
+    ):
+        raise RuntimeError("boom")
     assert timer.elapsed >= 0
     assert "block took" in caplog.text
 
@@ -72,9 +74,8 @@ def test_timed_exception(caplog):
     def fail():
         raise ValueError("failure")
 
-    with caplog.at_level(logging.INFO):
-        with pytest.raises(ValueError, match="failure"):
-            fail()
+    with caplog.at_level(logging.INFO), pytest.raises(ValueError, match="failure"):
+        fail()
     assert "fail took" in caplog.text
 
 

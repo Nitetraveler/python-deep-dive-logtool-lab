@@ -1,0 +1,66 @@
+========== CORRECTED IPYTHON BASELINE ==========
+11.3 μs ± 2.24 μs per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+
+========== CORRECTED IPYTHON OPTIMISED ==========
+2.45 μs ± 86.9 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+
+========== DIRECT SPEEDUP COMPARISON ==========
+Reference parser: 1.0984s
+Optimised parser: 0.2433s
+Speedup: 4.52x
+Time reduction: 77.85%
+PASS: Optimised parser is faster
+
+========== LARGE DATASET BENCHMARK ==========
+pipeline over 1 file(s) took 1.637s
+LogAnalyzer(records=199800, errors=39800, unique_ips=4)
+122,035 records/s
+
+========== OPTIMISED CPROFILE ==========
+Mon Nov 23 17:24:55 2026    profile.out
+
+         2030620 function calls (2029846 primitive calls) in 2.811 seconds
+
+   Ordered by: cumulative time
+   List reduced from 667 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     41/1    0.001    0.000    2.812    2.812 {built-in method builtins.exec}
+        1    0.000    0.000    2.812    2.812 <string>:1(<module>)
+        1    0.000    0.000    2.812    2.812 <frozen runpy>:201(run_module)
+        1    0.000    0.000    2.811    2.811 <frozen runpy>:65(_run_code)
+        1    0.000    0.000    2.811    2.811 __main__.py:1(<module>)
+        1    0.000    0.000    2.782    2.782 cli.py:204(main)
+        1    0.000    0.000    2.776    2.776 cli.py:47(cmd_summary)
+        1    0.000    0.000    2.775    2.775 utils.py:65(wrapper)
+        1    0.000    0.000    2.775    2.775 cli.py:28(analyze)
+        1    0.000    0.000    2.775    2.775 analyzer.py:16(__init__)
+        1    0.115    0.115    2.775    2.775 analyzer.py:40(feed)
+   199801    0.172    0.000    2.391    0.000 reader.py:34(parse_records)
+   200000    0.599    0.000    2.048    0.000 models.py:41(from_line)
+   199800    0.756    0.000    0.781    0.000 timeparse.py:27(parse_timestamp)
+   199800    0.387    0.000    0.387    0.000 <string>:2(__init__)
+
+
+PASS: _strptime absent from optimised profile
+
+========== LARGE DATASET CORRECTNESS ==========
+{
+  "files": 1,
+  "malformed": 200,
+  "records": 199800,
+  "total_bytes": 179720000,
+  "unique_ips": 4,
+  "first_seen": "2024-10-10T00:00:00+00:00",
+  "last_seen": "2024-10-12T07:33:18+00:00",
+  "error_rate": 0.1992,
+  "status_classes": {
+    "2xx": 140000,
+    "3xx": 20000,
+    "4xx": 20000,
+    "5xx": 19800
+  }
+}
+true
+PASS: LARGE DATASET VERIFIED
+PASS: ALL PERFORMANCE REQUIREMENTS
