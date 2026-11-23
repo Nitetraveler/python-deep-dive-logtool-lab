@@ -1,0 +1,48 @@
+========== TASK 2 VERIFICATION ==========
+Mon Nov 23 17:09:02 UTC 2026
+========== MODEL CONSTRUCTION ==========
+2024-10-10 00:00:00 203.0.113.10 GET /api/v1/items -> 200
+is_error: False | class: 2xx
+PASS: All parsed fields correct
+
+========== EQUALITY AND HASHABILITY ==========
+equal: True | distinct in a set: 1
+PASS: Equality and hashability
+
+========== IMMUTABILITY AND SLOTS ==========
+frozen: cannot assign to field 'status'
+Slots: ('ip', 'timestamp', 'method', 'path', 'status', 'size', 'agent')
+PASS: Frozen and slotted dataclass
+
+========== REGEX NAMED GROUPS ==========
+{'ip': '203.0.113.10', 'ts': '10/Oct/2024:00:00:00 +0000', 'method': 'GET', 'path': '/api/v1/items', 'protocol': 'HTTP/1.1', 'status': '200', 'size': '500', 'referrer': '-', 'agent': 'curl/7.81.0'}
+PASS: Named regex groups
+
+========== MALFORMED RECORD HANDLING ==========
+ParseError: unrecognised log format: '### corrupted entry 999 -- disk hiccup ###'
+malformed in first 1000 lines: 1
+PASS: Corrupted records handled correctly
+
+========== COMMON FORMAT AND DASH SIZE ==========
+0 3xx True 2:00:00
+PASS: Common format, missing agent and dash size
+
+========== TIMESTAMP ERROR CHAINING ==========
+bad timestamp | cause: ValueError
+PASS: Custom exception hierarchy and chaining
+
+========== STATUS PROPERTIES ==========
+PASS: Status 200: 2xx, error=False
+PASS: Status 304: 3xx, error=False
+PASS: Status 404: 4xx, error=True
+PASS: Status 500: 5xx, error=True
+PASS: Status 503: 5xx, error=True
+
+========== TIMEZONE-AWARE PARSING ==========
+PASS: Timezone offset conversion
+
+========== FULL DATASET MODEL VALIDATION ==========
+Valid records: 19980
+Malformed records: 20
+
+PASS: ALL TASK 2 REQUIREMENTS VERIFIED
